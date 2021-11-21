@@ -5,20 +5,55 @@
  */
 package br.edu.iff.marketplace.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author elias
  */
-public class Vendas implements Serializable{
+@Entity
+public class Venda implements Serializable{
      private static final long serialVersionUID = 1L;
-     
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
+     
+     @ManyToOne
      private Usuario usuario;
+     
+    
+     @ManyToOne
      private Vendedor vendedor;
+     
+     @OneToOne
      private Produto produto;
+     
+     @NotNull(message = "Endereço é obrigatório.")
+     @Column(nullable = false)
+     @Embedded
+     @Valid
+     private Endereco endereco;
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 
     public Long getId() {
         return id;
@@ -70,7 +105,7 @@ public class Vendas implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Vendas other = (Vendas) obj;
+        final Venda other = (Venda) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

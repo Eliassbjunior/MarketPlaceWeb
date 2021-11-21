@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='Produtos')}">
+        <title>...</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='produtos')}"/>
+        <div th:replace="~{fragmentos :: barrapesquisa}"/>
+        
+        
+        <div class="row row-cols-1 row-cols-md-5 g-4" style="width: 100%; heigth:100px; 
+             justify-content: left; padding-left: 100px; margin-top: 50px" >
+            <div class="col" th:each="produto : ${produtos}" style="margin: 15px;">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title" th:text="'Produto: '+${produto.nome}"> </h5>
+                  <p class="card-text" th:text="'Preço: '+${produto.preco}"></p>
+                  <p class="card-text" th:text="'Vendedor: '+${produto.vendedor.nome}"></p>
+                  <div style="display: flex; justify-content: center">
+                    <a th:href="@{~/produtos/comprar}" class="btn btn-primary">Comprar</a>
+                  </div>
+                  
+                </div>
+               
+              </div>
+            </div> 
+            
+        </div>
+        
+        <div th:replace="~{fragmentos :: imports-js}"/>
+        
+    </body>
+</html>

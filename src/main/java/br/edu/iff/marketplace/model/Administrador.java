@@ -5,12 +5,16 @@
  */
 package br.edu.iff.marketplace.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 /**
  *
  * @author elias
  */
-public class Administrador extends Pessoas{
-    
+@Entity
+public class Administrador extends Pessoa{
+    @Column(length = 13,unique = true, updatable = false)
     private String cpf;
 
     public String getCpf() {

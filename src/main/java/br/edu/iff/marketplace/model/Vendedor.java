@@ -5,17 +5,36 @@
  */
 package br.edu.iff.marketplace.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author elias
  */
-public class Vendedor extends Pessoas{
-    
+@Entity
+@JsonIgnoreProperties(value = {"senha","nivelDeAcesso"}, allowGetters = false, allowSetters = true)
+public class Vendedor extends Pessoa{
+    @Column(length = 18,unique = true, updatable = false)
     private String cnpj;
-    private List<Vendas> vendas;
-    private List<Produto> produtos;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "vendedor")
+    private List<Venda> vendas = new ArrayList<>();;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "vendedor",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Produto> produtos = new ArrayList<>();
 
     public String getCnpj() {
         return cnpj;
@@ -25,11 +44,11 @@ public class Vendedor extends Pessoas{
         this.cnpj = cnpj;
     }
 
-    public List<Vendas> getVendas() {
+    public List<Venda> getVendas() {
         return vendas;
     }
 
-    public void setVendas(List<Vendas> vendas) {
+    public void setVendas(List<Venda> vendas) {
         this.vendas = vendas;
     }
 
