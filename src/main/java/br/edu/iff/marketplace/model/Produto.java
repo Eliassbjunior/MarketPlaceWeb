@@ -38,9 +38,7 @@ public class Produto implements Serializable{
     private String nome;
     
     @Positive
-    @NotNull(message = "Preço é obrigatório.")
-    @Column(nullable = false)
-    private Double preco;
+    private double preco;
     
     @NotBlank(message = "Descrição é obrigatório.")
     @Column(nullable = false, length = 400)

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author elias
  */
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Object>{
-    @Query("SELECT p FROM Produto p WHERE p.nome = :nome")
+public interface ProdutoRepository extends JpaRepository<Produto, Long>{
+    @Query("SELECT p FROM Produto p WHERE p.nome LIKE :nome")
     public List<Produto> findByNome(@Param("nome") String nome);
 }

@@ -24,6 +24,10 @@ public class Administrador extends Pessoa{
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    public Administrador() {
+        this.nivelDeAcesso=2;
+    }
     
     
 }

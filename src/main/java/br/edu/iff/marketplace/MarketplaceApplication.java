@@ -2,22 +2,26 @@ package br.edu.iff.marketplace;
 
 
 import br.edu.iff.marketplace.model.Endereco;
+
 import br.edu.iff.marketplace.model.Produto;
 import br.edu.iff.marketplace.model.Usuario;
 import br.edu.iff.marketplace.model.Venda;
 import br.edu.iff.marketplace.model.Vendedor;
+import br.edu.iff.marketplace.repository.PermissaoRepository;
 
 
 import br.edu.iff.marketplace.repository.ProdutoRepository;
 import br.edu.iff.marketplace.repository.UsuarioRepository;
 import br.edu.iff.marketplace.repository.VendaRepository;
 import br.edu.iff.marketplace.repository.VendedorRepository;
+import br.edu.iff.marketplace.model.Permissao;
 import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class MarketplaceApplication implements CommandLineRunner{
@@ -29,7 +33,8 @@ public class MarketplaceApplication implements CommandLineRunner{
     @Autowired
     private VendedorRepository vendedorrepo;
     
-
+    @Autowired
+    private PermissaoRepository permissaorepo;
     
     @Autowired
     private VendaRepository vendarepo;
@@ -48,6 +53,13 @@ public class MarketplaceApplication implements CommandLineRunner{
         Calendar nascimento = Calendar.getInstance();
         nascimento.set(1993, 3, 14);
         
+        Permissao pUsuario = new Permissao();
+        pUsuario.setNome("USUARIO");
+        
+        Permissao pVendedor = new Permissao();
+        pVendedor.setNome("VENDEDOR");
+        
+        permissaorepo.saveAll(List.of(pUsuario, pVendedor));
         
      
         
@@ -61,24 +73,24 @@ public class MarketplaceApplication implements CommandLineRunner{
         Usuario usuario = new Usuario();
         usuario.setNome("Carn");
         usuario.setCpf("428.302.870-37");
-        usuario.setUser("Carn123");
-        usuario.setNivelDeAcesso(1);
-        usuario.setSenha("123teste");
+        usuario.setUser("Eliasjunior_");
+        usuario.setSenha(new BCryptPasswordEncoder().encode("130798"));
         usuario.setDataDeNascimento(nascimento);
         usuario.setEndereco(end);
         usuario.setTelefone("22998474816");
+        
         
         Vendedor vendedor = new Vendedor();
     
         
         vendedor.setNome("Ertiu");
         vendedor.setCnpj("11.393.561/0001-14");
-        vendedor.setUser("Ertiu123");
-        vendedor.setNivelDeAcesso(2);
-        vendedor.setSenha("123teste");
+        vendedor.setUser("Eliassbjunior");
+        vendedor.setSenha(new BCryptPasswordEncoder().encode("130798"));
         vendedor.setEndereco(end);
         vendedor.setDataDeNascimento(nascimento);
         vendedor.setTelefone("22998474816");
+        
         
         Produto produto = new Produto();
         

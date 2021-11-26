@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package br.edu.iff.marketplace.model;
-
+import br.edu.iff.marketplace.model.Permissao;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,7 +16,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -35,6 +38,10 @@ public class Vendedor extends Pessoa{
     @JsonIgnore
     @OneToMany(mappedBy = "vendedor",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Produto> produtos = new ArrayList<>();
+   
+    
+    
+    
 
     public String getCnpj() {
         return cnpj;
@@ -61,4 +68,12 @@ public class Vendedor extends Pessoa{
     }
     
     
+    public Vendedor() {
+        this.nivelDeAcesso = 1;
+        Permissao pVendedor = new Permissao();
+        pVendedor.setNome("VENDEDOR");
+        this.setPermissoes(List.of(pVendedor));
+    }
+    
+  
 }

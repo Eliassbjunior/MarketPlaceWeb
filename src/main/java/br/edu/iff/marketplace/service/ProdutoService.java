@@ -36,7 +36,7 @@ public class ProdutoService {
         return repo.findAll();
     }
     public List<Produto> findByNome(String nome){
-        List<Produto> result = repo.findByNome(nome);
+        List<Produto> result = repo.findByNome('%'+nome+'%');
         
         if(result.isEmpty()){
             throw new NotFoundException("Produto não encontrado.");

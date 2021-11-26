@@ -6,15 +6,20 @@
 package br.edu.iff.marketplace.service;
 
 import br.edu.iff.marketplace.exception.NotFoundException;
+import br.edu.iff.marketplace.model.Administrador;
 import br.edu.iff.marketplace.model.Usuario;
 import br.edu.iff.marketplace.model.Vendedor;
+import br.edu.iff.marketplace.repository.AdministradorRepository;
 import br.edu.iff.marketplace.repository.UsuarioRepository;
+import br.edu.iff.marketplace.repository.VendedorRepository;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +31,14 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repo;
     
+    @Autowired
+    private VendedorRepository repoo;
+    
+    @Autowired
+    private AdministradorRepository repooo;
+    
+    
+    
     public List<Usuario>findAll(int page, int size){
         Pageable p = PageRequest.of(page, size);
         return repo.findAll(p).toList();
@@ -35,8 +48,9 @@ public class UsuarioService {
     public List<Usuario> findAll(){
         return repo.findAll();
     }
-    public List<Usuario> findByNome(String nome){
-        List<Usuario> result = repo.findByUsuario(nome);
+    public List<Usuario> findByNome(String user){
+        String nome = user;
+        List<Usuario> result = repo.findByUsuario('%'+nome+'%',user);
         if(result.isEmpty()){
             throw new NotFoundException("Usuario não encontrado.");
         }
@@ -54,11 +68,23 @@ public class UsuarioService {
     }
     
     public Usuario save(Usuario a){
-       try{
-           return repo.save(a);
-       }catch(Exception e){
-           throw new RuntimeException("Falha ao salvar o Usuario.");
-       }
+        
+       try {
+            verificaUser(a.getUser());
+            
+            a.setSenha(new BCryptPasswordEncoder().encode(a.getSenha()));
+            return repo.save(a);
+            
+        } catch (Exception e) {
+            Throwable t = e;
+            while (t.getCause() != null) {
+                t = t.getCause();
+                if (t instanceof ConstraintViolationException) {
+                    throw ((ConstraintViolationException) t);
+                }
+            }
+            throw new RuntimeException("Falha ao salvar a Usuario.");
+        }
         
     }
     
@@ -118,13 +144,15 @@ public class UsuarioService {
             if(!novaSenha.equals(confirmarNovaSenha)){
                 throw new RuntimeException("Nova senha e a senha de confirmação são diferentes.");
             }
-            obj.setSenha(novaSenha);
+            obj.setSenha(new BCryptPasswordEncoder().encode(novaSenha));
         }
     }
 
     private void verificaUser(String user) {
-        List<Usuario> result = repo.findByUsuario(user);
-        if (!result.isEmpty()) {
+        Usuario result = repo.findByUser(user);
+        Vendedor resulte = repoo.findByUser(user);
+        List<Administrador> resultado = repooo.findByUser(user);
+        if (result != null||resulte != (null)||!resultado.isEmpty()) {
             throw new RuntimeException("Username já cadastrado.");
         }
     }

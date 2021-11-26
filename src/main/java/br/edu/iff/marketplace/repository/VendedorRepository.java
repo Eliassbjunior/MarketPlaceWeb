@@ -18,7 +18,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface VendedorRepository extends JpaRepository<Vendedor, Long>{
-    @Query("SELECT v FROM Vendedor v WHERE v.nome = :user OR v.user = :user")
-    public List<Vendedor> findByNome(@Param("user")String user);
+    @Query("SELECT v FROM Vendedor v WHERE v.nome LIKE :nome OR v.user = :user")
+    public List<Vendedor> findByNome(@Param("nome")String nome, @Param("user") String user);
+    
+    @Query("SELECT v FROM Vendedor v WHERE v.user = :user")
+    public Vendedor findByUser(@Param("user") String user);
 
 }
