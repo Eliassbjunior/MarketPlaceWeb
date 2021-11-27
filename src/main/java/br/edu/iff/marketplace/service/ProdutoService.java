@@ -52,7 +52,16 @@ public class ProdutoService {
         return result.get();
     }
     
-     public Produto save(Produto a){
+    public List<Produto> findByProduto(String user){
+        List<Produto> result = repo.findByProdutos(user);
+        
+        if(result.isEmpty()){
+            throw new NotFoundException("Produto não encontrado.");
+        }
+        
+        return result;
+    }
+    public Produto save(Produto a){
        try{
            return repo.save(a);
        }catch(Exception e){

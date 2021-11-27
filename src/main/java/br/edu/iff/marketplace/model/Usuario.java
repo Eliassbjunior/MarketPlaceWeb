@@ -36,9 +36,6 @@ public class Usuario extends Pessoa{
     
     public Usuario() {
         this.nivelDeAcesso=0;
-        Permissao pUsuario = new Permissao();
-        pUsuario.setNome("USUARIO");
-        this.setPermissoes(List.of(pUsuario));
     }
     
 

@@ -70,9 +70,6 @@ public class Vendedor extends Pessoa{
     
     public Vendedor() {
         this.nivelDeAcesso = 1;
-        Permissao pVendedor = new Permissao();
-        pVendedor.setNome("VENDEDOR");
-        this.setPermissoes(List.of(pVendedor));
     }
     
   

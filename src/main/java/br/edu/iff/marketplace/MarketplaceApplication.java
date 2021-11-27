@@ -78,6 +78,7 @@ public class MarketplaceApplication implements CommandLineRunner{
         usuario.setDataDeNascimento(nascimento);
         usuario.setEndereco(end);
         usuario.setTelefone("22998474816");
+        usuario.setPermissoes(List.of(pUsuario));
         
         
         Vendedor vendedor = new Vendedor();
@@ -90,7 +91,7 @@ public class MarketplaceApplication implements CommandLineRunner{
         vendedor.setEndereco(end);
         vendedor.setDataDeNascimento(nascimento);
         vendedor.setTelefone("22998474816");
-        
+        vendedor.setPermissoes(List.of(pVendedor));
         
         Produto produto = new Produto();
         

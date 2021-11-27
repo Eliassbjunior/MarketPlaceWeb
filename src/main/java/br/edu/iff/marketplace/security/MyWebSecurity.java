@@ -32,7 +32,7 @@ public class MyWebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/apirest/**").hasRole("ADMIN")
-                .antMatchers("/addprodutos/**").hasRole("VENDEDOR")
+                .antMatchers("/addproduto/**").hasRole("VENDEDOR")
                 .antMatchers("/meusprodutos/**").hasRole("VENDEDOR")
                 .antMatchers("/comprar/**").hasRole("USUARIO")
                 .antMatchers("/**").permitAll()

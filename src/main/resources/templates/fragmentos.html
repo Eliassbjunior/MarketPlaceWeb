@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head th:fragment="imports-css(title)">
         <title th:text="${title}">MarketPlace</title>
         <meta charset="UTF-8"/>
@@ -30,24 +30,6 @@
                             <li class="nav-item" th:classappend="${pagina == 'vendedores' ? 'active' : ''}">
                               <a class="nav-link" th:href="@{~/vendedores}">Vendedores</a>
                             </li>
-
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                      <li class="nav-item" th:classappend="${pagina == 'inicio' ? 'active' : ''}" >
-                        <a class="nav-link" aria-current="page" th:href="@{~/}" >Inicio</a>
-                      </li>
-                      <li class="nav-item" th:classappend="${pagina == 'produtos' ? 'active' : ''}">
-                        <a class="nav-link" th:href="@{~/produtos}">Produtos</a>
-                      </li>
-                      <li class="nav-item" th:classappend="${pagina == 'vendedores' ? 'active' : ''}">
-                        <a class="nav-link" th:href="@{~/vendedores}">Vendedores</a>
-                      </li>
-                        <li class="nav-item dropdown" >
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Login </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{~/logar}">Login</a></li>
-                            <li><a class="dropdown-item" th:href="@{~/criarconta}">Criar conta</a></li>
-
                         </ul>
                     </div>
                     <div style="margin-right: 35px">
@@ -68,11 +50,11 @@
         
         <div th:fragment="barrapesquisa">
             <form  method="GET">
-	            <div class="input-group mb-3" style="margin-top: 5px;">
-	                <input type="text" class="form-control" name="search" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2"/>
-	                <button class="btn btn-outline-secondary" type="submit" id="button-addon2" style="margin-left: 15px;margin-right: 5px">Buscar</button>
-	            </div> 
-        	</form>
+            <div class="input-group mb-3" style="margin-top: 5px;">
+                <input type="text" class="form-control" name="search" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2"/>
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2" style="margin-left: 15px;margin-right: 5px">Buscar</button>
+            </div> 
+        </form>
         </div>
         
         <div th:fragment="mensagens">
