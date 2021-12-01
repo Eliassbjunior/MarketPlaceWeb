@@ -33,7 +33,7 @@ public class Vendedor extends Pessoa{
     
     @JsonIgnore
     @OneToMany(mappedBy = "vendedor")
-    private List<Venda> vendas = new ArrayList<>();;
+    private List<Venda> vendas = new ArrayList<>();
     
     @JsonIgnore
     @OneToMany(mappedBy = "vendedor",cascade = CascadeType.ALL)
