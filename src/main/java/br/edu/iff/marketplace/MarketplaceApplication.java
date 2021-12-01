@@ -34,6 +34,9 @@ public class MarketplaceApplication implements CommandLineRunner{
     @Autowired
     private PermissaoRepository permissaorepo;
     
+	@Autowired
+	private VendedorRepository vendedorrepo;
+	
     @Autowired
     private AdministradorRepository adminrepo;
     
@@ -68,11 +71,22 @@ public class MarketplaceApplication implements CommandLineRunner{
         end.setRua("Avenida 35");
         end.setNumero(35);
         
+	Vendedor vendedor = new Vendedor();
+	vendedor.setEndereco(end);
+	vendedor.setNome("AdministradorNome");
+        vendedor.setSenha(new BCryptPasswordEncoder().encode("admin"));
+        vendedor.setUser("administrador");
+        vendedor.setCpf("94.042.285/0001-77");
+        vendedor.setDataDeNascimento(nascimento);
+        vendedor.setTelefone("22998765432");
+        vendedor.setPermissoes(List.of(pVendedor));  
+	vendedorrepo.save(vendedor);    
+	    
         admin.setEndereco(end);
         admin.setNome("AdministradorNome");
         admin.setSenha(new BCryptPasswordEncoder().encode("admin"));
-        admin.setUser("administrador");
-        admin.setCpf("428.322.870-37");
+        admin.setUser("Eliassbjunior");
+        admin.setCpf("94.042.285/0001-77");
         admin.setDataDeNascimento(nascimento);
         admin.setTelefone("22998765432");
         admin.setPermissoes(List.of(pAdmin));
