@@ -76,7 +76,7 @@ public class MarketplaceApplication implements CommandLineRunner{
 	vendedor.setNome("AdministradorNome");
         vendedor.setSenha(new BCryptPasswordEncoder().encode("admin"));
         vendedor.setUser("administrador");
-        vendedor.setCpf("94.042.285/0001-77");
+        vendedor.setCnpj("94.042.285/0001-77");
         vendedor.setDataDeNascimento(nascimento);
         vendedor.setTelefone("22998765432");
         vendedor.setPermissoes(List.of(pVendedor));  
