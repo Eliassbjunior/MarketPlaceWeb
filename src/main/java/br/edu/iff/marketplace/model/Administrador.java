@@ -5,6 +5,7 @@
  */
 package br.edu.iff.marketplace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -13,8 +14,9 @@ import javax.persistence.Entity;
  * @author elias
  */
 @Entity
+@JsonIgnoreProperties(value = {"senha","nivelDeAcesso"}, allowGetters = false, allowSetters = true)
 public class Administrador extends Pessoa{
-    @Column(length = 13,unique = true, updatable = false)
+    @Column(length = 14,unique = true, updatable = false)
     private String cpf;
 
     public String getCpf() {

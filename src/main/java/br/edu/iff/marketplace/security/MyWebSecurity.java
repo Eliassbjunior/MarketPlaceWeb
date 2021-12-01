@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class MyWebSecurity extends WebSecurityConfigurerAdapter {
@@ -32,14 +33,17 @@ public class MyWebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/apirest/**").hasRole("ADMIN")
-                .antMatchers("/addproduto/**").hasRole("VENDEDOR")
-                .antMatchers("/meusprodutos/**").hasRole("VENDEDOR")
-                .antMatchers("/comprar/**").hasRole("USUARIO")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/profile/addproduto/**").hasRole("VENDEDOR")
+                .antMatchers("/profile/meusprodutos/**").hasRole("VENDEDOR")
+                .antMatchers("/produtos/comprar/**").hasRole("USUARIO")
+                .antMatchers("/profile/edit/usuario").hasRole("USUARIO")
+                .antMatchers("/profile/edit/vendedor").hasRole("VENDEDOR")
+                .antMatchers("/produtos/id/deletar").hasAnyRole("VENDEDOR", "ADMIN")
                 .and()
                 .httpBasic()
                 .and()
-                .formLogin().usernameParameter("user");
+                .formLogin().usernameParameter("user")
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll().logoutSuccessUrl("/");
                 
     }
     

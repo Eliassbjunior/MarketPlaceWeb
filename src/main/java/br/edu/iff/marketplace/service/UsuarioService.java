@@ -58,6 +58,16 @@ public class UsuarioService {
         return result;
     }
     
+    public Usuario findByUser(String user){
+        Usuario usuario = repo.findByUser(user);
+        
+        if(usuario.equals(null)){
+            throw new NotFoundException("Usuario não encontrado.");
+        }
+        
+        return usuario;
+    }
+    
     public Usuario findById(Long id){
         Optional<Usuario> result = repo.findById(id);
         if(result.isEmpty()){
@@ -151,8 +161,8 @@ public class UsuarioService {
     private void verificaUser(String user) {
         Usuario result = repo.findByUser(user);
         Vendedor resulte = repoo.findByUser(user);
-        List<Administrador> resultado = repooo.findByUser(user);
-        if (result != null||resulte != (null)||!resultado.isEmpty()) {
+        Administrador resultado = repooo.findByUser(user);
+        if (result != null||resulte != (null)||resultado != null) {
             throw new RuntimeException("Username já cadastrado.");
         }
     }

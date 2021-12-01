@@ -13,7 +13,7 @@
         
         <div class="row row-cols-1 row-cols-md-5 g-4" style="width: 100%; heigth:100px; 
              justify-content: left; padding-left: 100px; margin-top: 50px" >
-            <div class="col" th:each="vendedor : ${vendedores}" style="margin: 15px;">
+            <div class="col-md-3" th:each="vendedor : ${vendedores}" style="margin: 15px;">
               <div class="card h-100">
                 <div class="card-body">
                   <h5 class="card-title" th:text="${vendedor.nome}"> </h5>
@@ -21,7 +21,8 @@
                   <p class="card-text" th:text="'Endereço: '+${vendedor.endereco.cidade}"></p>
                   <p class="card-text" th:text="'Rua: '+${vendedor.endereco.rua}"></p>
                   <div style="display: flex; justify-content: center">
-                    <a th:href="@{~/vendedores/produtos}" class="btn btn-primary">Ver Produtos</a>
+                    <a th:href="@{'~/vendedores/'+${vendedor.id}}" class="btn btn-primary">Ver Produtos</a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-warning" th:href="@{'~/vendedores/'+${vendedor.id}+'/deletar'}"style="margin-left: 4%">Excluir</a>
                   </div>
                   
                 </div>

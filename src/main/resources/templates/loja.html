@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragmentos :: imports-css(title='Loja')}">
+        <title>...</title>
+        
+    </head>
+    <body>
+        <div th:replace="~{fragmentos :: barramenu(pagina='vendedores')}"/>
+        <div align="center">
+            <h1 class="display-6">Loja</h1>
+        </div>
+        <div class="container" align="center" >
+            <div class="row row-cols-1 row-cols-md-5 g-4" style="width: 100%; heigth:100px; 
+            justify-content: left; padding-left: 100px; margin-top: 50px" >
+                <div class="col-md-3" th:each="produto : ${produtos}" style="margin: 15px;">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title" th:text="'Produto: '+${produto.nome}"> </h5>
+                      <p class="card-text" th:text="'Preço: '+${produto.preco}"></p>
+                      <p class="card-text" th:text="'Vendedor: '+${produto.vendedor.nome}"></p>
+                      <div style="display: flex; justify-content: center">
+                        <a sec:authorize="hasRole('ROLE_USUARIO')" th:href="@{'~/produtos/comprar/'+${produto.id}}" class="btn btn-primary" onclick="return confirm('Deseja realmente comprar esse produto?')">Comprar</a>
+                        <a sec:authorize="hasRole('ROLE_VENDEDOR')" class="btn btn-danger">Indisponível</a>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" type="button"  class="btn btn-warning" th:href="@{'~/produtos/'+${produto.id}+'/deletar'}" style="margin-left: 4%" onclick="return confirm('Deseja realmente deletar esse produto?')">Excluir</a>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>   
+            </div>
+        </div>
+        <div th:replace="~{fragmentos :: imports-js}"/>
+        
+    </body>
+</html>

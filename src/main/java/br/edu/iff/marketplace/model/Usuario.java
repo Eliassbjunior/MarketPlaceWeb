@@ -5,6 +5,7 @@
  */
 package br.edu.iff.marketplace.model;
 import br.edu.iff.marketplace.model.Permissao;
+import br.edu.iff.marketplace.repository.PermissaoRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderColumn;
 import javax.validation.constraints.Size;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -23,7 +25,7 @@ import javax.validation.constraints.Size;
 @JsonIgnoreProperties(value = "senha", allowGetters = false, allowSetters = true)
 public class Usuario extends Pessoa{
     @Column(length = 14,unique = true, updatable = false)
-    private String cpf;
+    private String cpf;  
     
     public String getCpf() {
         return cpf;

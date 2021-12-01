@@ -1,4 +1,4 @@
-package br.edu.iff.marketplace;
+package br.iff.edu.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

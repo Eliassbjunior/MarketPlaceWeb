@@ -5,8 +5,10 @@
  */
 package br.edu.iff.marketplace.controller.view;
 
+import br.edu.iff.marketplace.model.Permissao;
 import br.edu.iff.marketplace.model.Usuario;
 import br.edu.iff.marketplace.model.Vendedor;
+import br.edu.iff.marketplace.repository.PermissaoRepository;
 import br.edu.iff.marketplace.service.UsuarioService;
 import br.edu.iff.marketplace.service.VendedorService;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ public class CriarContaViewController {
     @Autowired
     private UsuarioService uservice;
     
+    @Autowired
+    private PermissaoRepository permissaorepo;
+    
     @GetMapping
     public String create(Model model){
         
@@ -45,7 +50,7 @@ public class CriarContaViewController {
         return "formUsuario";
     }
     @PostMapping(path="/usuario")
-    public String salvarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result, Model model){
+    public String salvarUsuario(@ModelAttribute Usuario usuario, BindingResult result, Model model){
         if(result.hasErrors()){
             
             model.addAttribute("msgErros", result.getAllErrors());
@@ -63,9 +68,15 @@ public class CriarContaViewController {
             model.addAttribute("msgErros", list);
             return "formUsuario";
         }
-        
+        List<Permissao> perm = new ArrayList<>();
+        perm = permissaorepo.findAll();
         usuario.setId(null);
         try{
+            for(int i = 0; i < perm.size(); i++){
+                if(perm.get(i).getNome().equalsIgnoreCase("USUARIO")){
+                    usuario.setPermissoes(List.of(perm.get(i)));
+                }
+            }
             uservice.save(usuario);
             model.addAttribute("msgSucesso", "Usuario cadastrado com sucesso!");
             model.addAttribute("usuario", new Usuario());
@@ -85,7 +96,7 @@ public class CriarContaViewController {
     }
     
     @PostMapping(path="/vendedor")
-    public String salvarVendedor(@Valid @ModelAttribute Vendedor vendedor, BindingResult result, Model model){
+    public String salvarVendedor(@ModelAttribute Vendedor vendedor, BindingResult result, Model model){
         if(result.hasErrors()){
             
             model.addAttribute("msgErros", result.getAllErrors());
@@ -105,7 +116,16 @@ public class CriarContaViewController {
         }
         
         vendedor.setId(null);
+        List<Permissao> perm = new ArrayList<>();
+        perm = permissaorepo.findAll();
+        
         try{
+            for(int i = 0; i < perm.size(); i++){
+                if(perm.get(i).getNome().equalsIgnoreCase("VENDEDOR")){
+                    vendedor.setPermissoes(List.of(perm.get(i)));
+                }
+            }
+            
             vservice.save(vendedor);
             model.addAttribute("msgSucesso", "Vendedor cadastrado com sucesso!");
             model.addAttribute("vendedor", new Vendedor());

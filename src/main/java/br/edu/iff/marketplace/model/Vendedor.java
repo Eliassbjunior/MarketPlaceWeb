@@ -36,12 +36,8 @@ public class Vendedor extends Pessoa{
     private List<Venda> vendas = new ArrayList<>();;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "vendedor",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "vendedor",cascade = CascadeType.ALL)
     private List<Produto> produtos = new ArrayList<>();
-   
-    
-    
-    
 
     public String getCnpj() {
         return cnpj;

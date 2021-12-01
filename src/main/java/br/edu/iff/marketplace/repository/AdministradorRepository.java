@@ -28,7 +28,7 @@ public interface AdministradorRepository extends JpaRepository<Administrador, Lo
     public List<Vendedor> findByVendedor(@Param("user")String user);
 
     @Query("SELECT a FROM Administrador a WHERE a.user = :user")
-    public List<Administrador> findByUser(@Param("user") String user);
+    public Administrador findByUser(@Param("user") String user);
 
    
     

@@ -156,9 +156,9 @@ public class VendedorService {
     private void verificaUser(String user) {
         Vendedor result = repo.findByUser(user);
         Usuario resulte = repoo.findByUser(user);
-        List<Administrador> resultado = repooo.findByUser(user);
+        Administrador resultado = repooo.findByUser(user);
         
-        if (result != null||resulte != null || !resultado.isEmpty()) {
+        if (result != null||resulte != null || resultado != null) {
             throw new RuntimeException("Username já cadastrado.");
         }
     }

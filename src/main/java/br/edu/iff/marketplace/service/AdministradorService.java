@@ -88,8 +88,8 @@ public class AdministradorService {
     }
 
     private void verificaUser(String user) {
-        List<Administrador> result = repo.findByUser(user);
-        if (!result.isEmpty()) {
+        Administrador result = repo.findByUser(user);
+        if (result != null) {
             throw new RuntimeException("Username já cadastrado.");
         }
     }

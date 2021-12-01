@@ -33,13 +33,18 @@
                         </ul>
                     </div>
                     <div style="margin-right: 35px">
-                        <ul class="navbar-nav">  
+                        <ul class="navbar-nav" sec:authorize="!isAuthenticated()">  
                             <li class="nav-item dropdown" style="margin-right: 45px">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Login </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
                                     <li><a class="dropdown-item" th:href="@{~/login}">Login</a></li>
                                     <li><a class="dropdown-item" th:href="@{~/criarconta}">Criar conta</a></li>
                                 </ul>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+                            <li class="nav-item">
+                              <a class="nav-link" th:href="@{~/logout}">Sair</a>
                             </li>
                         </ul>
                     </div>
@@ -56,6 +61,16 @@
             </div> 
         </form>
         </div>
+        
+        <div th:fragment="nav-perfil">
+            <ul class="list-group list-group-flush" >
+                <li class="list-group-item" sec:authorize="hasRole('ROLE_VENDEDOR')"><a th:href="@{~/profile/edit/vendedor}" style="text-decoration: none">Minhas Informações</a></li>
+                <li class="list-group-item" sec:authorize="hasRole('ROLE_USUARIO')"><a th:href="@{~/profile/edit/usuario}" style="text-decoration: none">Minhas Informações</a></li>
+                <li class="list-group-item" sec:authorize="hasRole('ROLE_VENDEDOR')" ><a th:href="@{~/profile/addproduto}" style="text-decoration: none">Adicionar Produtos</a></li>
+                <li class="list-group-item" sec:authorize="hasRole('ROLE_VENDEDOR')"><a th:href="@{~/produtos/meusprodutos}" style="text-decoration: none">Meus Produtos</a></li>                
+                <li class="list-group-item" sec:authorize="isAuthenticated()"><a th:href="@{~/vendedores/deletar}" style="text-decoration: none; color: red" onclick="return confirm('Deseja realmente excluir sua conta?')">Encerrar minha conta</a></li>
+            </ul>
+        </div> 
         
         <div th:fragment="mensagens">
             <div th:if="${not #strings.isEmpty(msgErros)}" class="alert alert-danger alert-dismissible fase show" role="alert">
