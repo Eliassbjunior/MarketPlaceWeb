@@ -69,15 +69,15 @@ public class MarketplaceApplication implements CommandLineRunner{
         end.setNumero(35);
         
         admin.setEndereco(end);
-        admin.setNome("Administrador");
+        admin.setNome("AdministradorNome");
         admin.setSenha(new BCryptPasswordEncoder().encode("admin"));
-        admin.setUser("root");
+        admin.setUser("administrador");
         admin.setCpf("428.322.870-37");
         admin.setDataDeNascimento(nascimento);
         admin.setTelefone("22998765432");
         admin.setPermissoes(List.of(pAdmin));
           
-        adminrepo.save(admin);
+        //adminrepo.save(admin);
         
     }
 
