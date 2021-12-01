@@ -30,21 +30,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class MarketplaceApplication implements CommandLineRunner{
-    
-    @Autowired
-    private UsuarioRepository usuariorepo;
-    
-    @Autowired
-    private VendedorRepository vendedorrepo;
-    
+       
     @Autowired
     private PermissaoRepository permissaorepo;
-    
-    @Autowired
-    private VendaRepository vendarepo;
-    
-    @Autowired
-    private ProdutoRepository produtorepo;
     
     @Autowired
     private AdministradorRepository adminrepo;
